@@ -4,13 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.bura.transparent.accounts.navigation.Route
+import com.bura.transparent.accounts.scene.TransparentAccountsScreen
 import com.bura.transparent.accounts.ui.theme.TransparentAccountsTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +20,20 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TransparentAccountsTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                ApplicationNavigationHost()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TransparentAccountsTheme {
-        Greeting("Android")
+private fun ApplicationNavigationHost() {
+    val navController = rememberNavController()
+    NavHost(
+        navController = navController,
+        startDestination = Route.TRANSPARENCY_ACCOUNTS_CHOOSE,
+        modifier = Modifier.systemBarsPadding(),
+    ) {
+        composable(Route.TRANSPARENCY_ACCOUNTS_CHOOSE) { TransparentAccountsScreen() }
     }
 }

@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">TransparentAccounts</string>
+    <string name="transparent_accounts_choose_screen_title">Vyberte transparentní účet</string>
+    <string name="error_title">Došlo k chybě, prosím zkuste to znovu</string>
+    <string name="error_button_title">Zkusit znovu</string>
+</resources>

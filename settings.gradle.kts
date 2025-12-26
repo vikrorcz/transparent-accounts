@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "TransparentAccounts"
 include(":app")
- 
+include(":network")

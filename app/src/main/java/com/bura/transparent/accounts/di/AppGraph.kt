@@ -6,6 +6,7 @@ import com.bura.transparent.accounts.domain.SelectedTransparentAccountRepository
 import com.bura.transparent.accounts.domain.TransparentAccountsRepository
 import com.bura.transparent.accounts.domain.TransparentAccountsUseCase
 import com.bura.transparent.accounts.scene.TransparentAccountsChooseViewModel
+import com.bura.transparent.accounts.scene.TransparentAccountsOverviewViewModel
 import com.bura.transparent.network.di.NetworkGraph
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.new
@@ -21,7 +22,9 @@ internal object AppGraph {
         single<SelectedTransparentAccountRepository> { new(::SelectedTransparentAccountRepositoryImpl) }
 
         factoryOf(TransparentAccountsUseCase::FetchAccounts)
+        factoryOf(TransparentAccountsUseCase::FetchOverview)
 
         viewModelOf(::TransparentAccountsChooseViewModel)
+        viewModelOf(::TransparentAccountsOverviewViewModel)
     }
 }

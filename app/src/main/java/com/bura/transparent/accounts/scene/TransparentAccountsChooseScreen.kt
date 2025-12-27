@@ -77,13 +77,12 @@ private fun Content(
         modifier = Modifier.padding(paddingValues),
     ) {
         items(state.accounts) { account ->
-            account.name?.let {
-                Card(
-                    label = it,
-                    value = account.amount,
-                    onClick = { onAccountItem(account.accountNumber) },
-                )
-            }
+            Card(
+                label = stringResource(R.string.transparent_accounts_choose_screen_label),
+                value = account.name,
+                secondaryValue = account.amount,
+                onClick = { onAccountItem(account.accountNumber) },
+            )
         }
     }
 }

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TransparentAccounts</string>
     <string name="transparent_accounts_choose_screen_title">Choose transparent account</string>
+    <string name="transparent_accounts_choose_screen_label">Account name</string>
     <string name="transparent_accounts_overview_screen_title">Overview</string>
     <string name="error_title">Encountered an error, please try again</string>
     <string name="error_button_title">Try again</string>

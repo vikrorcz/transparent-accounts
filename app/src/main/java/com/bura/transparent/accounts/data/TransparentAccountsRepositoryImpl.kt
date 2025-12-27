@@ -8,6 +8,7 @@ import com.bura.transparent.accounts.model.TransparentAccount
 import com.bura.transparent.network.data.TransparentAccountsApiService
 import com.bura.transparent.network.model.TransparentAccountDto
 import com.bura.transparent.network.model.TransparentAccountTransactionDto
+import java.time.LocalDate
 
 class TransparentAccountsRepositoryImpl(
     private val api: TransparentAccountsApiService,
@@ -22,10 +23,7 @@ class TransparentAccountsRepositoryImpl(
     override suspend fun fetchTransparentAccountTransactions(
         accountNumber: AccountNumber,
     ): Result<List<Transaction>> = runCatching {
-        println("overview= "  + accountNumber)
-        api.getTransparentAccountTransactions(
-            id = accountNumber.accountNumber,
-        )
+        api.getTransparentAccountTransactions(id = accountNumber.accountNumber)
             .transactions
             .map { it.toDomain() }
     }
@@ -37,6 +35,12 @@ class TransparentAccountsRepositoryImpl(
     )
 
     private fun TransparentAccountTransactionDto.toDomain() = Transaction(
-       money = Money(amount.value.toString(), amount.currency),
+        //name = sender?.name,
+        //date = LocalDate.parse(processingDate),
+        //note = typeDescription,
+        name = null,
+        date = null,
+        note = null,
+        money = Money(amount.value.toString(), amount.currency),
     )
 }

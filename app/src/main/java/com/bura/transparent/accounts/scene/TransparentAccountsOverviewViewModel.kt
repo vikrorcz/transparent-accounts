@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 
 class TransparentAccountsOverviewViewModel(
     private val fetchOverview: TransparentAccountsUseCase.FetchOverview,
+    private val loadSelected: TransparentAccountsUseCase.LoadSelected,
 ): StatefulViewModel<State>(State()) {
 
     init {
@@ -31,8 +32,11 @@ class TransparentAccountsOverviewViewModel(
     }
 
     private fun List<Transaction>.toState() = State(
+        accountName = loadSelected().name,
         transactions = map {
             TransactionItem(
+                name = it.name,
+                note = it.note,
                 amount = "${it.money.amount} ${it.money.currency}"
             )
         },
@@ -41,12 +45,15 @@ class TransparentAccountsOverviewViewModel(
     )
 
     data class State(
+        val accountName: String? = "",
         val transactions: List<TransactionItem> = emptyList(),
         val loading: Boolean = false,
         val error: Boolean = false,
     ): ViewModelState {
 
         data class TransactionItem(
+            val name: String? = "",
+            val note: String? = "",
             val amount: String? = "",
         )
     }

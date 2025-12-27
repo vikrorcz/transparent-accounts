@@ -15,7 +15,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.bura.transparent.accounts.R
-import com.bura.transparent.accounts.model.AccountNumber
 import com.bura.transparent.accounts.navigation.Route
 import com.bura.transparent.accounts.scene.TransparentAccountsChooseViewModel.State
 import com.bura.transparent.accounts.scene.component.Card
@@ -28,8 +27,8 @@ fun TransparentAccountsChooseScreen(navController: NavController) {
     val viewModel: TransparentAccountsChooseViewModel = koinViewModel()
     val state = viewModel.states.collectAsState().value
 
-    val onAccountItem = { accountNumber: AccountNumber ->
-        viewModel.onAccount(accountNumber)
+    val onAccountItem = { account: State.AccountItem ->
+        viewModel.onAccountItem(account)
         navController.navigate(Route.TRANSPARENCY_ACCOUNTS_OVERVIEW)
     }
 
@@ -44,7 +43,7 @@ fun TransparentAccountsChooseScreen(navController: NavController) {
 private fun Screen(
     state: State,
     onErrorRetry: () -> Unit,
-    onAccountItem: (AccountNumber) -> Unit,
+    onAccountItem: (State.AccountItem) -> Unit,
 ) {
     Scaffold(
         topBar = { Header() }
@@ -71,7 +70,7 @@ private fun Header() {
 private fun Content(
     state: State,
     paddingValues: PaddingValues,
-    onAccountItem: (AccountNumber) -> Unit,
+    onAccountItem: (State.AccountItem) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier.padding(paddingValues),
@@ -79,9 +78,9 @@ private fun Content(
         items(state.accounts) { account ->
             Card(
                 label = stringResource(R.string.transparent_accounts_choose_screen_label),
-                value = account.name,
+                value = account.model.name,
                 secondaryValue = account.amount,
-                onClick = { onAccountItem(account.accountNumber) },
+                onClick = { onAccountItem(account) },
             )
         }
     }

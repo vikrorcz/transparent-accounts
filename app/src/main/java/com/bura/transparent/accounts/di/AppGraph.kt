@@ -23,6 +23,7 @@ internal object AppGraph {
 
         factoryOf(TransparentAccountsUseCase::FetchAccounts)
         factoryOf(TransparentAccountsUseCase::FetchOverview)
+        factoryOf(TransparentAccountsUseCase::LoadSelected)
 
         viewModelOf(::TransparentAccountsChooseViewModel)
         viewModelOf(::TransparentAccountsOverviewViewModel)

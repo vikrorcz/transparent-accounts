@@ -1,6 +1,8 @@
 package com.bura.transparent.accounts.scene
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,6 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.bura.transparent.accounts.R
 import com.bura.transparent.accounts.scene.TransparentAccountsOverviewViewModel.State
 import com.bura.transparent.accounts.scene.component.Card
@@ -64,12 +67,26 @@ private fun Content(
     LazyColumn(
         modifier = Modifier.padding(paddingValues),
     ) {
+        item {
+            state.accountName?.let {
+                Text(
+                    text = it,
+                    modifier = Modifier.padding(start = 16.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(4.dp))
+        }
+
         items(state.transactions) { transaction ->
-            Card(
-                label = "autor",
-                value = transaction.amount,
-                onClick = { },
-            )
+            transaction.note?.let {
+                Card(
+                    label = it,
+                    value = transaction.amount,
+                    secondaryValue = transaction.name,
+                    onClick = { },
+                )
+            }
         }
     }
 }

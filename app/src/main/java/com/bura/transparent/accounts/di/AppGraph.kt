@@ -1,6 +1,8 @@
 package com.bura.transparent.accounts.di
 
+import com.bura.transparent.accounts.data.SelectedTransparentAccountRepositoryImpl
 import com.bura.transparent.accounts.data.TransparentAccountsRepositoryImpl
+import com.bura.transparent.accounts.domain.SelectedTransparentAccountRepository
 import com.bura.transparent.accounts.domain.TransparentAccountsRepository
 import com.bura.transparent.accounts.domain.TransparentAccountsUseCase
 import com.bura.transparent.accounts.scene.TransparentAccountsChooseViewModel
@@ -16,6 +18,7 @@ internal object AppGraph {
         includes(NetworkGraph.module)
 
         single<TransparentAccountsRepository> { new(::TransparentAccountsRepositoryImpl) }
+        single<SelectedTransparentAccountRepository> { new(::SelectedTransparentAccountRepositoryImpl) }
 
         factoryOf(TransparentAccountsUseCase::FetchAccounts)
 

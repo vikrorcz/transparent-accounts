@@ -1,7 +1,9 @@
 package com.bura.transparent.accounts.scene
 
 import androidx.lifecycle.viewModelScope
+import com.bura.transparent.accounts.domain.SelectedTransparentAccountRepository
 import com.bura.transparent.accounts.domain.TransparentAccountsUseCase
+import com.bura.transparent.accounts.model.AccountNumber
 import com.bura.transparent.accounts.model.TransparentAccount
 import com.bura.transparent.accounts.mvvm.StatefulViewModel
 import com.bura.transparent.accounts.mvvm.ViewModelState
@@ -10,14 +12,15 @@ import kotlinx.coroutines.launch
 
 class TransparentAccountsChooseViewModel(
     private val fetchAccounts: TransparentAccountsUseCase.FetchAccounts,
+    private val selectedTransparentAccountRepository: SelectedTransparentAccountRepository,
 ): StatefulViewModel<State>(State()) {
 
     init {
         fetch()
     }
 
-    fun onBack() {
-        return
+    fun onAccount(accountNumber: AccountNumber) {
+        selectedTransparentAccountRepository.store(accountNumber)
     }
 
     fun onErrorRetry() {
@@ -36,11 +39,11 @@ class TransparentAccountsChooseViewModel(
     private fun List<TransparentAccount>.toState() = State(
         accounts = map {
             State.Account(
+                accountNumber = it.accountNumber,
                 name = it.name,
                 amount = "${it.totalAmount.amount} ${it.totalAmount.currency}"
             )
-        }
-        ,
+        },
         loading = false,
         error = false,
     )
@@ -52,7 +55,8 @@ class TransparentAccountsChooseViewModel(
     ): ViewModelState {
 
         data class Account(
-            val name: String?,
+            val accountNumber: AccountNumber,
+            val name: String? = "",
             val amount: String? = "",
         )
     }

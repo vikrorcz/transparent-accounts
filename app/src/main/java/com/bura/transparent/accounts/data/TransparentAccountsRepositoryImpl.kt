@@ -1,6 +1,7 @@
 package com.bura.transparent.accounts.data
 
 import com.bura.transparent.accounts.domain.TransparentAccountsRepository
+import com.bura.transparent.accounts.model.AccountNumber
 import com.bura.transparent.accounts.model.Money
 import com.bura.transparent.accounts.model.TransparentAccount
 import com.bura.transparent.network.data.TransparentAccountsApiService
@@ -17,6 +18,7 @@ class TransparentAccountsRepositoryImpl(
     }
 
     private fun TransparentAccountDto.toDomain() = TransparentAccount(
+        accountNumber = AccountNumber(accountNumber, bankCode),
         name = name,
         totalAmount = Money(balance.toString(), currency.toString()),
     )

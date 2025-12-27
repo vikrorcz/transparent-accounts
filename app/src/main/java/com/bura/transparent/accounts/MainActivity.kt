@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.bura.transparent.accounts.navigation.Route
 import com.bura.transparent.accounts.scene.TransparentAccountsChooseScreen
+import com.bura.transparent.accounts.scene.TransparentAccountsOverviewScreen
 import com.bura.transparent.accounts.ui.theme.TransparentAccountsTheme
 
 class MainActivity : ComponentActivity() {
@@ -34,6 +35,7 @@ private fun ApplicationNavigationHost() {
         startDestination = Route.TRANSPARENCY_ACCOUNTS_CHOOSE,
         modifier = Modifier.systemBarsPadding(),
     ) {
-        composable(Route.TRANSPARENCY_ACCOUNTS_CHOOSE) { TransparentAccountsChooseScreen() }
+        composable(Route.TRANSPARENCY_ACCOUNTS_CHOOSE) { TransparentAccountsChooseScreen(navController) }
+        composable(Route.TRANSPARENCY_ACCOUNTS_OVERVIEW) { TransparentAccountsOverviewScreen() }
     }
 }

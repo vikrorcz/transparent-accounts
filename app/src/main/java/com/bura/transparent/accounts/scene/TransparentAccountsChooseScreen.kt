@@ -1,10 +1,9 @@
 package com.bura.transparent.accounts.scene
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -14,7 +13,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.bura.transparent.accounts.R
+import com.bura.transparent.accounts.model.AccountNumber
+import com.bura.transparent.accounts.navigation.Route
 import com.bura.transparent.accounts.scene.TransparentAccountsChooseViewModel.State
 import com.bura.transparent.accounts.scene.component.Card
 import com.bura.transparent.accounts.scene.component.Error
@@ -22,24 +24,28 @@ import com.bura.transparent.accounts.scene.component.Spinner
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun TransparentAccountsChooseScreen() {
+fun TransparentAccountsChooseScreen(navController: NavController) {
     val viewModel: TransparentAccountsChooseViewModel = koinViewModel()
     val state = viewModel.states.collectAsState().value
 
+    val onAccountItem = { accountNumber: AccountNumber ->
+        viewModel.onAccount(accountNumber)
+        navController.navigate(Route.TRANSPARENCY_ACCOUNTS_OVERVIEW)
+    }
+
     Screen(
         state = state,
-        onBack = {},
         onErrorRetry = viewModel::onErrorRetry,
+        onAccountItem = onAccountItem,
     )
 }
 
 @Composable
 private fun Screen(
     state: State,
-    onBack: () -> Unit,
     onErrorRetry: () -> Unit,
+    onAccountItem: (AccountNumber) -> Unit,
 ) {
-    BackHandler(onBack = onBack)
     Scaffold(
         topBar = { Header() }
     ) { paddingValues ->
@@ -49,6 +55,7 @@ private fun Screen(
             else -> Content(
                 state = state,
                 paddingValues = paddingValues,
+                onAccountItem = onAccountItem,
             )
         }
     }
@@ -64,16 +71,17 @@ private fun Header() {
 private fun Content(
     state: State,
     paddingValues: PaddingValues,
+    onAccountItem: (AccountNumber) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier.padding(paddingValues),
     ) {
-        itemsIndexed(state.accounts) { index, account ->
+        items(state.accounts) { account ->
             account.name?.let {
                 Card(
-                    label = account.name,
+                    label = it,
                     value = account.amount,
-                    onClick = {},
+                    onClick = { onAccountItem(account.accountNumber) },
                 )
             }
         }
@@ -85,7 +93,7 @@ private fun Content(
 private fun TransparentAccountsChooseScreenPreview() {
     Screen(
         state = State(),
-        onBack = {},
         onErrorRetry = {},
+        onAccountItem = {},
     )
 }

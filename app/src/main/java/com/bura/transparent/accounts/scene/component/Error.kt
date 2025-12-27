@@ -1,8 +1,10 @@
 package com.bura.transparent.accounts.scene.component
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -20,8 +22,11 @@ internal fun Error(
     onClick: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.fillMaxHeight().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
     ) {
         Text(
             text = stringResource(R.string.error_title),
@@ -29,12 +34,11 @@ internal fun Error(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = onClick,
-            content = { Text(stringResource(R.string.error_button_title)) },
-        )
+        Button(onClick = onClick) {
+            Text(stringResource(R.string.error_button_title))
+        }
     }
 }
 

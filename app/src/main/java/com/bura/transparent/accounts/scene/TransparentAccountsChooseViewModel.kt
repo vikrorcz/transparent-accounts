@@ -31,7 +31,7 @@ class TransparentAccountsChooseViewModel(
 
         fetchAccounts().fold(
             onSuccess = { accounts -> state = accounts.toState() },
-            onFailure = { throwable -> state = state.copy(loading = false, error = true) }
+            onFailure = { state = state.copy(loading = false, error = true) }
         )
     }
 

@@ -27,7 +27,7 @@ class TransparentAccountsOverviewViewModel(
 
         fetchOverview().fold(
             onSuccess = { transactions -> state = transactions.toState() },
-            onFailure = { throwable -> state = state.copy(loading = false, error = true) }
+            onFailure = { state = state.copy(loading = false, error = true) }
         )
     }
 

@@ -1,5 +1,6 @@
 package com.bura.transparent.accounts.scene
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.bura.transparent.accounts.R
 import com.bura.transparent.accounts.scene.TransparentAccountsOverviewViewModel.State
 import com.bura.transparent.accounts.scene.component.Card
@@ -24,12 +26,13 @@ import com.bura.transparent.accounts.scene.component.Spinner
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun TransparentAccountsOverviewScreen() {
+fun TransparentAccountsOverviewScreen(navController: NavController) {
     val viewModel: TransparentAccountsOverviewViewModel = koinViewModel()
     val state = viewModel.states.collectAsState().value
 
     Screen(
         state = state,
+        onBack = { navController.navigateUp() },
         onErrorRetry = viewModel::onErrorRetry,
     )
 }
@@ -37,8 +40,10 @@ fun TransparentAccountsOverviewScreen() {
 @Composable
 private fun Screen(
     state: State,
+    onBack: () -> Unit,
     onErrorRetry: () -> Unit,
 ) {
+    BackHandler(onBack = onBack)
     Scaffold(
         topBar = { Header() }
     ) { paddingValues ->
@@ -96,6 +101,7 @@ private fun Content(
 private fun TransparentAccountsOverviewScreenPreview() {
     Screen(
         state = State(),
+        onBack = {},
         onErrorRetry = {},
     )
 }

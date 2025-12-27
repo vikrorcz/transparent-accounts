@@ -36,6 +36,6 @@ private fun ApplicationNavigationHost() {
         modifier = Modifier.systemBarsPadding(),
     ) {
         composable(Route.TRANSPARENCY_ACCOUNTS_CHOOSE) { TransparentAccountsChooseScreen(navController) }
-        composable(Route.TRANSPARENCY_ACCOUNTS_OVERVIEW) { TransparentAccountsOverviewScreen() }
+        composable(Route.TRANSPARENCY_ACCOUNTS_OVERVIEW) { TransparentAccountsOverviewScreen(navController) }
     }
 }

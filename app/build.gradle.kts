@@ -58,6 +58,9 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
 
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.kotest)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

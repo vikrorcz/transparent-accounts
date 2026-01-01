@@ -13,6 +13,9 @@ navigation = "2.9.6"
 okHttp = "4.12.0"
 retrofit = "2.11.0"
 kotlinSerialization = "1.9.0"
+coroutinesTest = "1.10.2"
+mockk = "1.14.7"
+kotest = "6.0.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,6 +37,10 @@ androidx-compose-navigation = { module = "androidx.navigation:navigation-compose
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koinBom" }
 koin-android = { module = "io.insert-koin:koin-android" }
 koin-compose = { module = "io.insert-koin:koin-androidx-compose" }
+
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+kotest = { module = "io.kotest:kotest-assertions-core-jvm", version.ref = "kotest" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
 
 okHttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHttp" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
